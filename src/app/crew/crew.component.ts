@@ -14,6 +14,7 @@ export class CrewComponent implements OnInit {
   ];
 
   memberBeingEdited: object = null;
+  alreadyMember: boolean = false;
 
   constructor() { }
 
@@ -21,7 +22,15 @@ export class CrewComponent implements OnInit {
   }
 
   add(memberName: string, isFirst: boolean) {
-    this.crew.push({name: memberName, firstMission: isFirst});
+    for (let i = 0; i < this.crew.length; i++) {
+      if (this.crew[i]['name'] === memberName) {
+        this.alreadyMember = true;
+      }
+    }
+    if(!this.alreadyMember) {
+      this.crew.push({name: memberName, firstMission: isFirst});
+    }
+    this.alreadyMember = false;
   }
 
   remove(member: object) {
